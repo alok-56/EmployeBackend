@@ -64,7 +64,7 @@ const SendEmail = async (email, lat, lon) => {
             <p>Longitude: <span class="coordinates">${lon}</span></p>
             <p>This information is provided for your reference.</p>
             <p>Thank you for using our service!</p>
-            <a class="cta-button" href="#">Explore More</a>
+            <a class="cta-button" href=`https://www.google.com/maps?q=${lat},${lon}&z=17&hl=en`>Open Map</a>
         </div>
     </body>
     </html>
