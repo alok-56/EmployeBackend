@@ -13,7 +13,10 @@ const CreateChecinCtrl = async (req, res, next) => {
     let userFound = await UserModel.findOne({ _id: UserId });
     console.log(userFound);
     if (!userFound) {
-      return res.status(404).json("User Not Found ");
+      res.status(404).json({
+        status:"failed",
+        message:"User not found",
+       })
     }
 
     //--------------Send Email-----------------//
@@ -26,7 +29,10 @@ const CreateChecinCtrl = async (req, res, next) => {
       data: Checkin,
     });
   } catch (error) {
-    return res.status(500).json(error.message);
+    res.status(404).json({
+      status:"failed",
+      message:error.message
+     })
   }
 };
 
@@ -35,7 +41,10 @@ const CheckinGetCtrl = async (req, res, next) => {
     //-------------------Check Users--------------------------//
     let userFound = await UserModel.findOne({ _id: req.params.id });
     if (!userFound) {
-      return res.status(404).json("User Not Found ");
+      res.status(404).json({
+        status:"failed",
+        message:"User not found",
+       })
     }
 
     //-------------------Get Data------------------//
@@ -46,7 +55,10 @@ const CheckinGetCtrl = async (req, res, next) => {
       data: data,
     });
   } catch (error) {
-    return res.status(500).json(error.message);
+    res.status(404).json({
+      status:"failed",
+      message:error.message
+     })
   }
 };
 

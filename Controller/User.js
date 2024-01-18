@@ -9,7 +9,10 @@ const SignUpuserCtrl = async (req, res, next) => {
     //--------------------Check users--------------------------//
     let userFound = await UserModel.find({ Email: Email });
     if (userFound.length > 0) {
-      return next(new AppErr("Email Already in Use", 404));
+     res.status(404).json({
+      status:"failed",
+      message:"Email Already in use"
+     })
     }
 
     //-------------------Createing Users----------------------//
@@ -19,7 +22,10 @@ const SignUpuserCtrl = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
-    return next(new AppErr(error.message, 500));
+    res.status(500).json({
+      status:"failed",
+      message:error.message
+     })
   }
 };
 
@@ -29,7 +35,10 @@ const SigninCtrl = async (req, res, next) => {
     //-------------------Check Users--------------------------//
     let userFound = await UserModel.findOne({ Email: Email });
     if (userFound.length > 0) {
-      return next(new AppErr("User not Found"), 404);
+      res.status(404).json({
+        status:"failed",
+        message:"User Not Found"
+       })
     }
 
     return res.status(200).json({
@@ -37,7 +46,10 @@ const SigninCtrl = async (req, res, next) => {
       data: userFound,
     });
   } catch (error) {
-    return next(new AppErr(error.message, 500));
+    res.status(500).json({
+      status:"failed",
+      message:error.message
+     })
   }
 };
 
